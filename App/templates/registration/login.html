@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block title %}Login{% endblock %} {% block content%}
+<div class="container">
+  <div class="row">
+      <div class="col">  
+         <!--Nothing here  -->
+      </div>
+    <div class="col">
+      <form method="POST">
+          <input type="hidden" />
+          <br><br><br><br><br><br><br><br>
+          <h1 class="h3 mb-3 font-weight-normal">Please Login</h1>
+          <label for="id_username" class="sr-only">Username</label>
+          <input class="form-control" placeholder="Username" type="text" name="username" autofocus="" required=""
+            id="id_username" />
+          <br>
+          <label for="id_password" class="sr-only">Password</label>
+          <input type="password" name="password" required="" id="id_password" class="form-control"
+            placeholder="Password" />
+          <br>
+          {% csrf_token %}
+          <button class="btn btn-sm btn-primary btn-block" type="submit">
+            Sign in
+          </button>
+        </form>      
+    </div>
+    <div class="col">  
+       <!--Nothing here  -->       
+      </div>
+  </div>
+</div>
+<br><br><br><br><br><br>
+
+{% endblock %}

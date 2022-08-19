@@ -1,0 +1,71 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<br><br><br><br><br><br>
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+  <ul class="messages">
+    <li style="list-style: none;">
+      <strong>{{ message }}</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </li>
+  </ul>
+</div>
+<hr>
+{% endfor %}
+{% endif %}
+
+{% if user.is_authenticated %}
+<h1>Add new Student</h1>
+<form action="{% url 'add' %}" method="post">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">First Name</label>
+      <input type="text" name="FirstName" maxlength="255" required id="id_FirstName" class="form-control"
+        placeholder="First Name">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Second Name</label>
+      <input type="text" name="SecondName" maxlength="255" required id="id_SecondName" class="form-control"
+        placeholder="Second Name">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAddress">Registration No.</label>
+    <input type="text" name="Registration" maxlength="255" required id="id_Registration" class="form-control"
+      placeholder="CS/mg/...">
+  </div>
+  <div class="form-group">
+    <label for="inputAddress2">Serial Number</label>
+    <input type="text" name="LaptopSerialNumber" maxlength="255" id="id_LaptopSerialNumber" class="form-control"
+      placeholder="">
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <input type="checkbox" name="Hostel" id="id_Hostel" class="form-check-input">
+      <label class="form-check-label" for="gridCheck">
+        Hostel
+      </label>
+    </div>
+  </div>
+  <input type="hidden" name="next" value="{{ next }}" />
+  {% csrf_token %}
+  <button type="submit" class="btn btn-primary">Add Student</button>
+</form>
+
+{% else %}
+<br><br><br><br><br>
+<p><strong>You are currently logged out !</strong></p>
+<h3><a class="" href="{% url 'login' %}">Please Login</a></h3>
+<hr>
+<br><br><br><br><br><br><br>
+{% endif %}
+
+{% endblock %}

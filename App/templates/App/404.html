@@ -1,0 +1,20 @@
+{% extends 'base.html' %} {% block title %}Error{% endblock %} {% block content%}
+<br><br><br><br><br><br><br><br><br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger" role="alert">
+                {% if message %}
+                <h2 class="alert-heading">Oops!!</h2>
+                <h4>{{ message }}</h4>
+                {% if message %}
+                <p>Name: {{ data.FirstName  }} {{ data.SecondName }} Registration:{{ data.Registration }}</p>
+                {% endif %}
+                <hr>    
+                <a href="/" class="btn btn-primary btn-lg">Add new record?</a>        
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

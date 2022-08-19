@@ -1,0 +1,106 @@
+{% extends 'base.html' %} {% block title %}Student Details{% endblock %}
+
+{% block content%}
+<br><br><br><br>
+
+<!-- modal -->
+<div class="alert alert-info" role="alert">
+  {{ data.FirstName }}
+  {{ data.SecondName }}
+  {{ data.Registration }}
+  <span class="badge badge-secondary">
+    <h7>
+      {% if data.Hostel %}
+      Resident
+      {% else %}
+      Non-resident
+      {% endif %}
+    </h7>
+  </span>
+  {{ data.LaptopSerialNumber }}
+  <br><br>
+
+  <!-- Button trigger modal -->
+  <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+    Delete Student
+  </button>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Are you sure you want to delete student?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="/delete/{{ data.slug }}" class="btn btn-danger">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Update form for student -->
+<hr>
+{% if user.is_authenticated %}
+<h1>Update {{ data.FirstName }}'s Record</h1>
+
+<form action="/{{ data.get_absolute_url }}" method="POST">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">First Name</label>
+      <input value="{{ data.FirstName }}" type="text" name="FirstName" maxlength="255" required id="id_FirstName"
+        class="form-control" placeholder="{{ data.FirstName }}">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Second Name</label>
+      <input value="{{ data.SecondName }}" type="text" name="SecondName" maxlength="255" required id="id_SecondName"
+        class="form-control" placeholder="{{ data.SecondName }}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAddress">Registration No.</label>
+    <input value="{{ data.Registration }}" type="text" name="Registration" maxlength="255" required id="id_Registration"
+      class="form-control" placeholder="{{ data.Registration }}">
+  </div>
+  <div class="form-group">
+    <label for="inputAddress2">Serial Number</label>
+    <input value="{{ data.LaptopSerialNumber }}" type="text" name="LaptopSerialNumber" maxlength="255"
+      id="id_LaptopSerialNumber" class="form-control" placeholder="{{ data.LaptopSerialNumber }}">
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <input {% if data.Hostel %} checked {% else %} {% endif %} type="checkbox" name="Hostel" id="id_Hostel"
+        class="form-check-input">
+      <label class="form-check-label" for="gridCheck">
+        Hostel
+      </label>
+    </div>
+  </div>
+  <input type="hidden" name="next" value="{{ next }}" />
+  {% csrf_token %}
+  <button type="submit" class="btn btn-primary">Update Student</button>
+</form>
+
+
+{% endif %}
+
+{% endblock %}
+
+
+<!--  -->
+'<p><label for="id_FirstName">FirstName:</label> <input type="text" name="FirstName" maxlength="255" required
+    id="id_FirstName"></p>\n<p><label for="id_SecondName">SecondName:</label> <input type="text" name="SecondName"
+    maxlength="255" required id="id_SecondName"></p>\n<p><label for="id_Registration">Registration:</label> <input
+    type="text" name="Registration" maxlength="255" required id="id_Registration"></p>\n<p><label
+    for="id_Hostel">Hostel:</label> <input type="checkbox" name="Hostel" id="id_Hostel"></p>\n<p><label
+    for="id_LaptopSerialNumber">LaptopSerialNumber:</label> <input type="text" name="LaptopSerialNumber" maxlength="255"
+    required id="id_LaptopSerialNumber"></p>'
